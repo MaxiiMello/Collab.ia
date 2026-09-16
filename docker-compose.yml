@@ -1,0 +1,40 @@
+# ======================================
+# Collab.ia — docker-compose.yml (DEV)
+# Modo desarrollo: hot-reload completo
+# Uso: docker compose up
+# ======================================
+
+services:
+  app:
+    image: node:20-alpine
+    container_name: collab-ia
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=file:/app/prisma/dev.db
+      - NEXT_TELEMETRY_DISABLED=1
+    volumes:
+      # Monta el código fuente para hot-reload
+      - .:/app
+      # Preserva node_modules del host (no los sobreescribe)
+      - /app/node_modules
+    command: >
+      sh -c "
+        apk add --no-cache openssl &&
+        npm install --prefer-offline &&
+        npx prisma generate &&
+        npx prisma db push --skip-generate &&
+        npx tsx prisma/seed.ts || true &&
+        npm run dev
+      "
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s

@@ -1,0 +1,61 @@
+// ======================================
+// Collab.ia — Prisma Schema
+// Base de datos: SQLite (dev) / PostgreSQL (prod)
+// ======================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  role         String   // "volunteer" | "org"
+  // Stored as JSON strings in SQLite (arrays not natively supported)
+  skills       String   @default("[]") // JSON array
+  interests    String   @default("[]") // JSON array
+  availability String?
+  location     String?
+  bio          String?
+  avatar       String?  // initials or emoji
+  createdAt    DateTime @default(now())
+
+  // Relations
+  needs        Need[]   @relation("OrgNeeds")
+  matches      Match[]  @relation("VolunteerMatches")
+}
+
+model Need {
+  id                   String   @id @default(cuid())
+  orgId                String
+  org                  User     @relation("OrgNeeds", fields: [orgId], references: [id])
+  title                String
+  description          String   // texto plano original del usuario
+  requiredSkills       String   @default("[]") // JSON array — extraído por IA
+  requiredAvailability String?  // extraído por IA
+  location             String?  // extraído por IA
+  status               String   @default("open") // "open" | "closed"
+  createdAt            DateTime @default(now())
+
+  // Relations
+  matches Match[]
+}
+
+model Match {
+  id          String   @id @default(cuid())
+  needId      String
+  need        Need     @relation(fields: [needId], references: [id])
+  volunteerId String
+  volunteer   User     @relation("VolunteerMatches", fields: [volunteerId], references: [id])
+  score       Float    // 0.0 - 1.0
+  status      String   @default("pending") // "pending" | "accepted" | "rejected"
+  createdAt   DateTime @default(now())
+
+  @@unique([needId, volunteerId])
+}
