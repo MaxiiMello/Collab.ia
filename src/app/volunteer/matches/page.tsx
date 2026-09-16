@@ -100,13 +100,13 @@ export default function VolunteerMatches() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Nav */}
-      <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
+      <nav className="border-b border-gray-800 bg-black">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-lg">Collab<span className="gradient-text">.ia</span></span>
+            <span className="font-bold text-lg">Collab.ia</span>
           </Link>
           <div className="flex items-center gap-2">
             <Link href="/volunteer/profile">
@@ -122,7 +122,7 @@ export default function VolunteerMatches() {
         </div>
       </nav>
 
-      <main className="flex-1 max-w-3xl mx-auto w-full px-6 pt-24 pb-12">
+      <main className="flex-1 max-w-3xl mx-auto w-full px-6 pt-12 pb-12">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
@@ -235,18 +235,15 @@ function MatchCard({
   accepted?: boolean;
 }) {
   const scorePercent = Math.round(match.score * 100);
-  const gradientColor =
-    scorePercent >= 70 ? 'from-emerald-500 to-teal-400' :
-    scorePercent >= 40 ? 'from-amber-500 to-orange-400' : 'from-rose-500 to-pink-400';
 
   return (
-    <div className={`glass-card rounded-2xl p-5 transition-all duration-300 ${
-      accepted ? 'border-emerald-500/30' :
-      match.status === 'rejected' ? 'border-white/5' : 'hover:border-white/20'
+    <div className={`border p-5 rounded-xl transition-all ${
+      accepted ? 'border-green-800 bg-green-900/10' :
+      match.status === 'rejected' ? 'border-gray-800 opacity-50' : 'border-gray-700 bg-gray-900 hover:border-blue-500'
     }`}>
       <div className="flex items-start gap-4">
         {/* Org Avatar */}
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500/30 to-violet-600/30 border border-white/10 flex items-center justify-center text-xl flex-shrink-0">
+        <div className="w-12 h-12 rounded bg-blue-900/50 flex items-center justify-center text-xl flex-shrink-0">
           {match.need.org.avatar || '🏛️'}
         </div>
 
@@ -269,9 +266,9 @@ function MatchCard({
           </div>
 
           {/* Score Bar */}
-          <div className="h-1 bg-white/10 rounded-full overflow-hidden mb-3">
+          <div className="h-1.5 bg-gray-800 rounded mb-3">
             <div
-              className={`h-full rounded-full bg-gradient-to-r ${gradientColor}`}
+              className="h-full rounded bg-blue-500"
               style={{ width: `${scorePercent}%` }}
             />
           </div>
@@ -316,11 +313,10 @@ function MatchCard({
             <div className="flex gap-2">
               <Button
                 id={`accept-match-${match.id}`}
-                variant="gradient"
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
                 size="sm"
                 onClick={onAccept}
                 disabled={updating}
-                className="flex-1"
               >
                 {updating ? (
                   <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -358,16 +354,16 @@ function MatchCard({
 
 function EmptyMatches() {
   return (
-    <div className="text-center py-20">
-      <div className="w-20 h-20 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-6">
-        <Star className="w-10 h-10 text-indigo-400" />
+    <div className="text-center py-20 border border-gray-800 bg-gray-900 rounded-xl">
+      <div className="w-20 h-20 rounded bg-blue-900/50 flex items-center justify-center mx-auto mb-6">
+        <Star className="w-10 h-10 text-blue-400" />
       </div>
-      <h3 className="text-xl font-semibold mb-2">Sin matches aún</h3>
-      <p className="text-muted-foreground mb-6 max-w-sm mx-auto text-sm">
+      <h3 className="text-xl font-bold mb-2">Sin matches aún</h3>
+      <p className="text-gray-400 mb-6 max-w-sm mx-auto text-sm">
         Aún no hay necesidades que coincidan con tu perfil. Asegúrate de tener tus habilidades actualizadas.
       </p>
       <Link href="/volunteer/profile">
-        <Button variant="gradient">
+        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
           <User className="w-4 h-4" />
           Actualizar mi perfil
         </Button>

@@ -130,13 +130,13 @@ export default function VolunteerProfile() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Nav */}
-      <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
+      <nav className="border-b border-gray-800 bg-black">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-lg">Collab<span className="gradient-text">.ia</span></span>
+            <span className="font-bold text-lg">Collab.ia</span>
           </Link>
           <div className="flex items-center gap-2">
             <Link href="/volunteer/matches">
@@ -152,40 +152,40 @@ export default function VolunteerProfile() {
         </div>
       </nav>
 
-      <main className="flex-1 max-w-2xl mx-auto w-full px-6 pt-24 pb-12">
+      <main className="flex-1 max-w-2xl mx-auto w-full px-6 pt-12 pb-12">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-3xl">
+            <div className="w-16 h-16 rounded bg-blue-900/50 flex items-center justify-center text-3xl">
               🤝
             </div>
             <div>
               <h1 className="text-2xl font-bold">{user?.name || 'Mi Perfil'}</h1>
-              <p className="text-muted-foreground text-sm">{user?.email}</p>
+              <p className="text-gray-400 text-sm">{user?.email}</p>
             </div>
           </div>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-gray-400 text-sm">
             Completa tu perfil para que la IA pueda hacer un match preciso con las necesidades de las organizaciones.
           </p>
         </div>
 
         <div className="space-y-6">
           {/* Skills */}
-          <Card className="glass-card">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-base">🛠️ Habilidades</CardTitle>
-              <CardDescription>¿Qué sabes hacer? Selecciona tus habilidades técnicas</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+          <div className="border border-gray-800 bg-gray-900 rounded-xl p-6">
+            <div className="pb-4">
+              <h2 className="font-bold text-lg">🛠️ Habilidades</h2>
+              <p className="text-sm text-gray-400">¿Qué sabes hacer? Selecciona tus habilidades técnicas</p>
+            </div>
+            <div className="space-y-4">
               <div className="flex flex-wrap gap-2">
                 {SKILL_SUGGESTIONS.map((skill) => (
                   <button
                     key={skill}
                     onClick={() => toggleSkill(skill.toLowerCase())}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                    className={`px-3 py-1.5 rounded text-xs font-bold transition-all ${
                       skills.includes(skill.toLowerCase())
-                        ? 'bg-violet-500/30 border border-violet-500/50 text-violet-200 scale-105'
-                        : 'bg-white/5 border border-white/10 text-muted-foreground hover:bg-white/10'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700'
                     }`}
                   >
                     {skills.includes(skill.toLowerCase()) && '✓ '}
@@ -201,9 +201,9 @@ export default function VolunteerProfile() {
                   value={customSkill}
                   onChange={(e) => setCustomSkill(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && addCustomSkill()}
-                  className="flex-1"
+                  className="flex-1 bg-black"
                 />
-                <Button variant="outline" size="icon" onClick={addCustomSkill}>
+                <Button variant="outline" size="icon" onClick={addCustomSkill} className="border-gray-700">
                   <Plus className="w-4 h-4" />
                 </Button>
               </div>
@@ -211,12 +211,12 @@ export default function VolunteerProfile() {
               {/* Selected skills */}
               {skills.length > 0 && (
                 <div>
-                  <p className="text-xs text-muted-foreground mb-2">Seleccionadas ({skills.length}):</p>
+                  <p className="text-xs text-gray-500 mb-2">Seleccionadas ({skills.length}):</p>
                   <div className="flex flex-wrap gap-1.5">
                     {skills.map((skill) => (
                       <span
                         key={skill}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-violet-500/20 text-violet-300 border border-violet-500/30"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-bold bg-blue-900/50 text-blue-300"
                       >
                         {skill}
                         <button onClick={() => toggleSkill(skill)} className="hover:text-white">
@@ -227,25 +227,25 @@ export default function VolunteerProfile() {
                   </div>
                 </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Interests */}
-          <Card className="glass-card">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-base">❤️ Intereses</CardTitle>
-              <CardDescription>¿Qué causas te importan?</CardDescription>
-            </CardHeader>
-            <CardContent>
+          <div className="border border-gray-800 bg-gray-900 rounded-xl p-6">
+            <div className="pb-4">
+              <h2 className="font-bold text-lg">❤️ Intereses</h2>
+              <p className="text-sm text-gray-400">¿Qué causas te importan?</p>
+            </div>
+            <div>
               <div className="flex flex-wrap gap-2">
                 {INTEREST_SUGGESTIONS.map((interest) => (
                   <button
                     key={interest}
                     onClick={() => toggleInterest(interest)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                    className={`px-3 py-1.5 rounded text-xs font-bold transition-all ${
                       interests.includes(interest)
-                        ? 'bg-pink-500/25 border border-pink-500/40 text-pink-200 scale-105'
-                        : 'bg-white/5 border border-white/10 text-muted-foreground hover:bg-white/10'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700'
                     }`}
                   >
                     {interests.includes(interest) && '✓ '}
@@ -253,15 +253,15 @@ export default function VolunteerProfile() {
                   </button>
                 ))}
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Availability + Location */}
-          <Card className="glass-card">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-base">📅 Disponibilidad & Ubicación</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+          <div className="border border-gray-800 bg-gray-900 rounded-xl p-6">
+            <div className="pb-4">
+              <h2 className="font-bold text-lg">📅 Disponibilidad & Ubicación</h2>
+            </div>
+            <div className="space-y-4">
               <div className="space-y-2">
                 <Label>¿Cuándo puedes ayudar?</Label>
                 <div className="flex flex-wrap gap-2">
@@ -269,10 +269,10 @@ export default function VolunteerProfile() {
                     <button
                       key={opt}
                       onClick={() => setAvailability(opt)}
-                      className={`px-3 py-1.5 rounded-lg text-xs transition-all ${
+                      className={`px-3 py-1.5 rounded text-xs font-bold transition-all ${
                         availability === opt
-                          ? 'bg-indigo-500/25 border border-indigo-500/40 text-indigo-200'
-                          : 'bg-white/5 border border-white/10 text-muted-foreground hover:bg-white/10'
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700'
                       }`}
                     >
                       {opt}
@@ -291,6 +291,7 @@ export default function VolunteerProfile() {
                   placeholder="Rivera, Uruguay"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
+                  className="bg-black"
                 />
               </div>
 
@@ -301,21 +302,20 @@ export default function VolunteerProfile() {
                   placeholder="Cuéntanos tu experiencia, motivaciones o cualquier cosa relevante..."
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
-                  className="min-h-[80px]"
+                  className="min-h-[80px] bg-black"
                 />
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Save Button */}
           <div className="flex flex-col sm:flex-row gap-3">
             <Button
               id="save-profile-btn"
-              variant="gradient"
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
               size="lg"
               onClick={handleSave}
               disabled={saving}
-              className="flex-1"
             >
               {saved ? (
                 <span className="flex items-center gap-2">

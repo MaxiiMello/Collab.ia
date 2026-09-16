@@ -67,15 +67,15 @@ export default function LandingPage() {
   return (
     <main className="min-h-screen flex flex-col">
       {/* ---- Header ---- */}
-      <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
+      <nav className="border-b border-gray-800 bg-black">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-lg">Collab<span className="gradient-text">.ia</span></span>
+            <span className="font-bold text-lg">Collab.ia</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 text-sm text-gray-400">
             <Globe className="w-4 h-4" />
             <span>Rivera · Livramento</span>
           </div>
@@ -83,111 +83,83 @@ export default function LandingPage() {
       </nav>
 
       {/* ---- Hero ---- */}
-      <section className="flex-1 flex items-center justify-center px-6 pt-24 pb-12">
+      <section className="flex-1 flex items-center justify-center px-6 pt-12 pb-12">
         <div className="max-w-5xl w-full">
           {/* Hero Text */}
-          <div className="text-center mb-16 animate-fade-in">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 text-sm font-medium mb-8">
-              <Zap className="w-3.5 h-3.5" />
-              Powered by Gemini AI
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
-              Voluntariado
-              <br />
-              <span className="gradient-text">Inteligente</span>
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-6xl font-bold mb-4">
+              Voluntariado Inteligente
             </h1>
-
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-4">
-              La IA conecta tu necesidad con el voluntario perfecto en la frontera
-              <span className="text-foreground font-medium"> Rivera · Livramento</span>
-            </p>
-
-            <p className="text-base text-muted-foreground/70 italic">
-              "O voluntariado certo, no momento certo, no lugar certo."
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-4">
+              La IA conecta tu necesidad con el voluntario perfecto en la frontera Rivera · Livramento
             </p>
           </div>
 
           {/* Feature Pills */}
-          <div className="flex flex-wrap justify-center gap-3 mb-16 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
             {[
-              { icon: Sparkles, label: 'Match por IA', color: 'text-violet-400' },
-              { icon: MapPin, label: 'Frontera UY-BR', color: 'text-blue-400' },
-              { icon: Heart, label: 'Impacto real', color: 'text-pink-400' },
-              { icon: Zap, label: 'En segundos', color: 'text-amber-400' },
-            ].map(({ icon: Icon, label, color }) => (
-              <div key={label} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm">
-                <Icon className={`w-4 h-4 ${color}`} />
-                <span className="text-muted-foreground">{label}</span>
+              { icon: Sparkles, label: 'Match por IA' },
+              { icon: MapPin, label: 'Frontera UY-BR' },
+              { icon: Heart, label: 'Impacto real' },
+              { icon: Zap, label: 'En segundos' },
+            ].map(({ icon: Icon, label }) => (
+              <div key={label} className="flex items-center gap-2 px-3 py-1 rounded border border-gray-700 bg-gray-800 text-sm">
+                <Icon className="w-4 h-4 text-blue-400" />
+                <span className="text-gray-300">{label}</span>
               </div>
             ))}
           </div>
 
           {/* ---- Role Selection + Form ---- */}
-          <div className="max-w-lg mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <div className="max-w-lg mx-auto">
             {/* Role Selector */}
             {!selectedRole ? (
               <div className="space-y-4">
-                <p className="text-center text-muted-foreground text-sm mb-6 font-medium uppercase tracking-widest">
+                <p className="text-center text-gray-400 text-sm mb-4 font-bold uppercase">
                   ¿Cómo quieres participar?
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   <RoleCard
                     icon={Building2}
                     title="Soy Organización"
-                    subtitle="Publico necesidades y busco voluntarios"
-                    color="violet"
+                    subtitle="Publico necesidades"
                     onClick={() => setSelectedRole('org')}
                   />
                   <RoleCard
                     icon={Users}
-                    title="Sou Voluntário"
-                    subtitle="Quiero ofrecer mis habilidades"
-                    color="indigo"
+                    title="Soy Voluntario"
+                    subtitle="Ofrezco mis habilidades"
                     onClick={() => setSelectedRole('volunteer')}
                   />
                 </div>
               </div>
             ) : (
-              <Card className="glass-card animate-fade-in">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center gap-3">
+              <div className="border border-gray-800 rounded-xl p-6 bg-gray-900">
+                <div className="pb-4 border-b border-gray-800 mb-4">
+                  <div className="flex justify-between items-center mb-2">
                     <button
                       onClick={() => setSelectedRole(null)}
-                      className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                      className="text-gray-400 hover:text-white text-sm"
                     >
                       ← Volver
                     </button>
-                    <div className="flex-1" />
-                    <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      selectedRole === 'org'
-                        ? 'bg-violet-500/20 text-violet-300'
-                        : 'bg-indigo-500/20 text-indigo-300'
-                    }`}>
-                      {selectedRole === 'org' ? '🏛️ Organización' : '🤝 Voluntario'}
-                    </div>
+                    <span className="px-2 py-1 bg-gray-800 text-xs rounded text-gray-300">
+                      {selectedRole === 'org' ? 'Organización' : 'Voluntario'}
+                    </span>
                   </div>
-                  <CardTitle className="text-xl mt-2">
-                    {selectedRole === 'org' ? 'Registra tu organización' : 'Crea tu perfil'}
-                  </CardTitle>
-                  <CardDescription>
-                    {selectedRole === 'org'
-                      ? 'Publica necesidades y la IA encuentra los voluntarios perfectos'
-                      : 'Completa tus datos y empieza a hacer match con causas que te importan'
-                    }
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
+                  <h2 className="text-xl font-bold">
+                    {selectedRole === 'org' ? 'Registro Organización' : 'Registro Voluntario'}
+                  </h2>
+                </div>
+                <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name">
-                      {selectedRole === 'org' ? 'Nombre de la organización' : 'Tu nombre completo'}
-                    </Label>
+                    <Label htmlFor="name">Nombre</Label>
                     <Input
                       id="name"
-                      placeholder={selectedRole === 'org' ? 'Centro Cultural Rivera' : 'Ana García'}
+                      placeholder={selectedRole === 'org' ? 'Ej: Centro Cultural' : 'Ej: Ana García'}
                       value={form.name}
                       onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
+                      className="bg-black"
                     />
                   </div>
 
@@ -199,6 +171,7 @@ export default function LandingPage() {
                       placeholder="hola@ejemplo.com"
                       value={form.email}
                       onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
+                      className="bg-black"
                     />
                   </div>
 
@@ -209,49 +182,35 @@ export default function LandingPage() {
                       placeholder="Rivera, Uruguay"
                       value={form.location}
                       onChange={(e) => setForm(f => ({ ...f, location: e.target.value }))}
+                      className="bg-black"
                     />
                   </div>
 
                   {error && (
-                    <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
+                    <p className="text-sm text-red-400 bg-red-900/50 p-2 rounded">
                       {error}
                     </p>
                   )}
 
                   <Button
                     id="enter-btn"
-                    className="w-full"
-                    variant="gradient"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                     size="lg"
                     onClick={handleEnter}
                     disabled={loading}
                   >
-                    {loading ? (
-                      <span className="flex items-center gap-2">
-                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Ingresando...
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-2">
-                        Ingresar a Collab.ia
-                        <ArrowRight className="w-4 h-4" />
-                      </span>
-                    )}
+                    {loading ? 'Ingresando...' : 'Ingresar'}
                   </Button>
-
-                  <p className="text-xs text-center text-muted-foreground">
-                    Demo mode — sin contraseña requerida
-                  </p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             )}
           </div>
         </div>
       </section>
 
       {/* ---- Footer ---- */}
-      <footer className="py-8 text-center text-sm text-muted-foreground border-t border-white/5">
-        <p>Collab.ia · Hackathon 2026 · 🇺🇾 Rivera / Santana do Livramento 🇧🇷</p>
+      <footer className="py-6 text-center text-sm text-gray-500 border-t border-gray-800">
+        <p>Collab.ia · Hackathon 2026</p>
       </footer>
     </main>
   );
@@ -263,38 +222,23 @@ function RoleCard({
   icon: Icon,
   title,
   subtitle,
-  color,
   onClick,
 }: {
   icon: React.ElementType;
   title: string;
   subtitle: string;
-  color: 'violet' | 'indigo';
   onClick: () => void;
 }) {
-  const colorClasses = {
-    violet: {
-      bg: 'hover:bg-violet-500/10 hover:border-violet-500/30',
-      icon: 'bg-violet-500/20 text-violet-400',
-    },
-    indigo: {
-      bg: 'hover:bg-indigo-500/10 hover:border-indigo-500/30',
-      icon: 'bg-indigo-500/20 text-indigo-400',
-    },
-  };
-
-  const cls = colorClasses[color];
-
   return (
     <button
       onClick={onClick}
-      className={`group p-6 rounded-2xl border border-white/10 bg-white/5 text-left transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${cls.bg}`}
+      className="p-4 rounded-xl border border-gray-700 bg-gray-800 hover:bg-gray-700 text-left transition-colors"
     >
-      <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${cls.icon}`}>
-        <Icon className="w-5 h-5" />
+      <div className="w-10 h-10 rounded bg-blue-900/50 flex items-center justify-center mb-3">
+        <Icon className="w-5 h-5 text-blue-400" />
       </div>
-      <p className="font-semibold text-sm mb-1">{title}</p>
-      <p className="text-xs text-muted-foreground leading-relaxed">{subtitle}</p>
+      <p className="font-bold text-sm mb-1">{title}</p>
+      <p className="text-xs text-gray-400">{subtitle}</p>
     </button>
   );
 }

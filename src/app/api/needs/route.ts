@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
 
     // ---- PASO 4: Ejecutar matching ----
     console.log('🔍 Ejecutando matching...');
-    let matchResults = [];
+    let matchResults: any[] = [];
     try {
       matchResults = await runMatching(need.id, 5);
       console.log(`✅ Matching encontró ${matchResults.length} voluntarios`);

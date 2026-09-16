@@ -90,28 +90,28 @@ export default function OrgDashboard() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
+      <nav className="border-b border-gray-800 bg-black">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-lg">Collab<span className="gradient-text">.ia</span></span>
+            <span className="font-bold text-lg">Collab.ia</span>
           </Link>
 
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20">
-              <Building2 className="w-3.5 h-3.5 text-violet-400" />
-              <span className="text-sm font-medium text-violet-300">{user?.name || '...'}</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded border border-gray-700 bg-gray-800">
+              <Building2 className="w-3.5 h-3.5 text-gray-400" />
+              <span className="text-sm font-bold text-gray-300">{user?.name || '...'}</span>
             </div>
-            <Button variant="ghost" size="icon" onClick={handleLogout} title="Salir">
+            <Button variant="ghost" size="icon" onClick={handleLogout} title="Salir" className="text-gray-400">
               <LogOut className="w-4 h-4" />
             </Button>
           </div>
         </div>
       </nav>
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-6 pt-24 pb-12">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-6 pt-12 pb-12">
         {/* Hero Row */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
           <div>
@@ -123,8 +123,8 @@ export default function OrgDashboard() {
             </p>
           </div>
           <Link href="/org/new-need">
-            <Button variant="gradient" size="lg" id="new-need-btn">
-              <Plus className="w-5 h-5" />
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white" size="lg" id="new-need-btn">
+              <Plus className="w-5 h-5 mr-2" />
               Nueva Necesidad
             </Button>
           </Link>
@@ -176,11 +176,11 @@ export default function OrgDashboard() {
 
         {/* Match Detail Panel */}
         {selectedNeed && selectedNeed.matches.length > 0 && (
-          <div className="mt-8 animate-fade-in">
-            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-violet-400" />
+          <div className="mt-8">
+            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-blue-500" />
               Voluntarios recomendados para:{' '}
-              <span className="text-violet-300">{selectedNeed.title}</span>
+              <span className="text-blue-300">{selectedNeed.title}</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {selectedNeed.matches
@@ -202,25 +202,18 @@ function StatCard({ icon: Icon, label, value, color }: {
   icon: React.ElementType;
   label: string;
   value: number;
-  color: 'violet' | 'indigo' | 'emerald';
+  color: string;
 }) {
-  const colorMap = {
-    violet: 'text-violet-400 bg-violet-500/10',
-    indigo: 'text-indigo-400 bg-indigo-500/10',
-    emerald: 'text-emerald-400 bg-emerald-500/10',
-  };
   return (
-    <Card className="glass-card">
-      <CardContent className="p-6 flex items-center gap-4">
-        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${colorMap[color]}`}>
-          <Icon className={`w-6 h-6 ${colorMap[color].split(' ')[0]}`} />
-        </div>
+    <div className="border border-gray-800 bg-gray-900 rounded-xl p-6 flex items-center gap-4">
+      <div className="w-12 h-12 rounded bg-gray-800 flex items-center justify-center text-blue-400">
+        <Icon className="w-6 h-6" />
+      </div>
         <div>
           <p className="text-2xl font-bold">{value}</p>
-          <p className="text-sm text-muted-foreground">{label}</p>
+          <p className="text-sm text-gray-400">{label}</p>
         </div>
-      </CardContent>
-    </Card>
+    </div>
   );
 }
 
@@ -233,12 +226,11 @@ function NeedCard({ need, index, isSelected, onClick }: {
   return (
     <button
       onClick={onClick}
-      className={`text-left w-full rounded-2xl border transition-all duration-300 p-5 group
+      className={`text-left w-full rounded-xl border transition-all duration-300 p-5 group
         ${isSelected
-          ? 'border-violet-500/50 bg-violet-500/10'
-          : 'border-white/10 bg-white/5 hover:bg-white/8 hover:border-white/20'
+          ? 'border-blue-500 bg-gray-800'
+          : 'border-gray-800 bg-gray-900 hover:bg-gray-800'
         }`}
-      style={{ animationDelay: `${index * 0.05}s` }}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex-1">
@@ -252,12 +244,12 @@ function NeedCard({ need, index, isSelected, onClick }: {
               </Badge>
             )}
           </div>
-          <h3 className="font-semibold text-sm leading-snug">{need.title}</h3>
+          <h3 className="font-bold text-sm leading-snug">{need.title}</h3>
         </div>
-        <ChevronRight className={`w-4 h-4 text-muted-foreground flex-shrink-0 transition-transform ${isSelected ? 'rotate-90 text-violet-400' : 'group-hover:translate-x-0.5'}`} />
+        <ChevronRight className={`w-4 h-4 text-gray-500 flex-shrink-0 transition-transform ${isSelected ? 'rotate-90 text-blue-400' : 'group-hover:translate-x-0.5'}`} />
       </div>
 
-      <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{need.description}</p>
+      <p className="text-xs text-gray-400 mb-3 line-clamp-2">{need.description}</p>
 
       <div className="flex flex-wrap gap-1.5 mb-3">
         {(need.requiredSkills || []).slice(0, 3).map((skill) => (
@@ -286,18 +278,11 @@ function NeedCard({ need, index, isSelected, onClick }: {
 
 function MatchCard({ match }: { match: Need['matches'][0] }) {
   const scorePercent = Math.round(match.score * 100);
-  const scoreColor = scorePercent >= 70 ? 'emerald' : scorePercent >= 40 ? 'amber' : 'rose';
-  const colorMap = {
-    emerald: 'from-emerald-500 to-teal-500',
-    amber: 'from-amber-500 to-orange-500',
-    rose: 'from-rose-500 to-pink-500',
-  };
 
   return (
-    <Card className="glass-card hover:border-white/20 transition-all">
-      <CardContent className="p-4">
+    <div className="border border-gray-800 bg-gray-900 rounded-xl hover:border-gray-700 transition-all p-4">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-lg flex-shrink-0">
+          <div className="w-10 h-10 rounded bg-blue-900/50 flex items-center justify-center text-lg flex-shrink-0">
             {match.volunteer.avatar || '👤'}
           </div>
           <div className="flex-1 min-w-0">
@@ -312,34 +297,33 @@ function MatchCard({ match }: { match: Need['matches'][0] }) {
         {/* Score Bar */}
         <div className="space-y-1">
           <div className="flex justify-between text-xs">
-            <span className="text-muted-foreground">Compatibilidad</span>
+            <span className="text-gray-400">Compatibilidad</span>
             <span className="font-bold text-white">{scorePercent}%</span>
           </div>
-          <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <div className="h-1.5 bg-gray-800 rounded overflow-hidden">
             <div
-              className={`h-full rounded-full bg-gradient-to-r ${colorMap[scoreColor]} transition-all duration-700`}
+              className="h-full rounded bg-blue-500"
               style={{ width: `${scorePercent}%` }}
             />
           </div>
         </div>
-      </CardContent>
-    </Card>
+    </div>
   );
 }
 
 function EmptyState() {
   return (
-    <div className="text-center py-24">
-      <div className="w-20 h-20 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center mx-auto mb-6">
-        <Sparkles className="w-10 h-10 text-violet-400" />
+    <div className="text-center py-24 border border-gray-800 bg-gray-900 rounded-xl">
+      <div className="w-20 h-20 rounded bg-gray-800 flex items-center justify-center mx-auto mb-6">
+        <Sparkles className="w-10 h-10 text-blue-500" />
       </div>
-      <h3 className="text-xl font-semibold mb-2">Aún no hay necesidades</h3>
-      <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
+      <h3 className="text-xl font-bold mb-2">Aún no hay necesidades</h3>
+      <p className="text-gray-400 mb-8 max-w-sm mx-auto">
         Publica tu primera necesidad y la IA encontrará los voluntarios perfectos en segundos
       </p>
       <Link href="/org/new-need">
-        <Button variant="gradient" size="lg">
-          <Plus className="w-5 h-5" />
+        <Button className="bg-blue-600 hover:bg-blue-700 text-white" size="lg">
+          <Plus className="w-5 h-5 mr-2" />
           Publicar primera necesidad
         </Button>
       </Link>

@@ -6,7 +6,7 @@
 
 services:
   app:
-    image: node:20-alpine
+    image: node:20
     container_name: collab-ia
     working_dir: /app
     ports:
@@ -24,7 +24,6 @@ services:
       - /app/node_modules
     command: >
       sh -c "
-        apk add --no-cache openssl &&
         npm install --prefer-offline &&
         npx prisma generate &&
         npx prisma db push --skip-generate &&

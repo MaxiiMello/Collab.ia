@@ -110,20 +110,20 @@ export default function NewNeedPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Nav */}
-      <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
+      <nav className="border-b border-gray-800 bg-black">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center gap-4">
           <Link href="/org/dashboard">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="w-4 h-4" />
+            <Button variant="ghost" size="sm" className="text-gray-400">
+              <ArrowLeft className="w-4 h-4 mr-2" />
               Dashboard
             </Button>
           </Link>
-          <div className="w-px h-4 bg-white/10" />
-          <span className="text-sm text-muted-foreground">Nueva Necesidad</span>
+          <div className="w-px h-4 bg-gray-700" />
+          <span className="text-sm text-gray-400">Nueva Necesidad</span>
         </div>
       </nav>
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-6 pt-24 pb-12">
+      <main className="flex-1 max-w-4xl mx-auto w-full px-6 pt-12 pb-12">
         {stage === 'form' && (
           <FormStage
             description={description}
@@ -157,20 +157,20 @@ function FormStage({
   error: string;
 }) {
   return (
-    <div className="max-w-2xl mx-auto animate-fade-in">
+    <div className="max-w-2xl mx-auto">
       <div className="mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-medium mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-blue-900/50 border border-blue-800 text-blue-300 text-xs font-bold mb-4">
           <Zap className="w-3 h-3" />
           Powered by Gemini AI
         </div>
         <h1 className="text-3xl font-bold mb-2">¿Qué necesitas?</h1>
-        <p className="text-muted-foreground">
+        <p className="text-gray-400">
           Describe tu necesidad en lenguaje natural. La IA extraerá las habilidades, 
           disponibilidad y ubicación para encontrar al voluntario perfecto.
         </p>
       </div>
 
-      <Card className="glass-card mb-6">
+      <div className="border border-gray-800 bg-gray-900 rounded-xl mb-6">
         <CardContent className="p-6 space-y-4">
           <Textarea
             id="need-description"
@@ -188,26 +188,26 @@ function FormStage({
           )}
 
           <div className="flex items-center justify-between">
-            <span className="text-xs text-muted-foreground">
+            <span className="text-xs text-gray-500">
               {description.length} caracteres
             </span>
             <Button
               id="analyze-btn"
-              variant="gradient"
+              className="bg-blue-600 hover:bg-blue-700 text-white"
               onClick={onSubmit}
               disabled={description.trim().length < 10}
             >
-              <Sparkles className="w-4 h-4" />
+              <Sparkles className="w-4 h-4 mr-2" />
               Analizar con IA
             </Button>
           </div>
         </CardContent>
-      </Card>
+      </div>
 
       {/* Examples */}
       <div>
-        <div className="flex items-center gap-2 mb-3 text-sm text-muted-foreground">
-          <Lightbulb className="w-4 h-4 text-amber-400" />
+        <div className="flex items-center gap-2 mb-3 text-sm text-gray-400 font-bold">
+          <Lightbulb className="w-4 h-4 text-amber-500" />
           <span>Ejemplos de necesidades:</span>
         </div>
         <div className="space-y-2">
@@ -215,7 +215,7 @@ function FormStage({
             <button
               key={i}
               onClick={() => setDescription(ex)}
-              className="w-full text-left px-4 py-3 rounded-xl border border-white/8 bg-white/3 hover:bg-white/8 hover:border-white/15 text-sm text-muted-foreground transition-all duration-200 line-clamp-2"
+              className="w-full text-left px-4 py-3 rounded border border-gray-700 bg-gray-800 hover:bg-gray-700 text-sm text-gray-300 transition-colors"
             >
               "{ex}"
             </button>
@@ -236,17 +236,13 @@ function AnalyzingStage({ description }: { description: string }) {
   ];
 
   return (
-    <div className="max-w-2xl mx-auto text-center py-16 animate-fade-in">
-      <div className="relative w-24 h-24 mx-auto mb-8">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500 opacity-20 animate-ping" />
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500 opacity-10 animate-pulse" />
-        <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-violet-500/30 to-indigo-600/30 border border-violet-500/40 flex items-center justify-center">
-          <Sparkles className="w-10 h-10 text-violet-400" />
-        </div>
+    <div className="max-w-2xl mx-auto text-center py-16">
+      <div className="relative w-24 h-24 mx-auto mb-8 flex items-center justify-center rounded bg-gray-800 border border-gray-700">
+        <Sparkles className="w-10 h-10 text-blue-500" />
       </div>
 
       <h2 className="text-2xl font-bold mb-2">La IA está analizando...</h2>
-      <p className="text-muted-foreground mb-10 text-sm">
+      <p className="text-gray-400 mb-10 text-sm">
         Gemini está procesando tu descripción y buscando voluntarios compatibles
       </p>
 
@@ -282,15 +278,13 @@ function ResultsStage({
   onViewDashboard: () => void;
 }) {
   return (
-    <div className="animate-fade-in space-y-8">
+    <div className="space-y-8">
       {/* Success Header */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-        </div>
+      <div className="flex items-center gap-3 bg-green-900/30 border border-green-800 p-4 rounded-xl">
+        <CheckCircle2 className="w-6 h-6 text-green-500" />
         <div>
-          <h1 className="text-2xl font-bold">¡Análisis completado!</h1>
-          <p className="text-muted-foreground text-sm">
+          <h1 className="text-xl font-bold text-green-400">¡Análisis completado!</h1>
+          <p className="text-green-300 text-sm">
             Se encontraron {matches.length} voluntario{matches.length !== 1 ? 's' : ''} compatible{matches.length !== 1 ? 's' : ''}
           </p>
         </div>
@@ -300,13 +294,12 @@ function ResultsStage({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Extracted Data */}
         <div className="space-y-4">
-          <h2 className="font-semibold flex items-center gap-2">
-            <Zap className="w-4 h-4 text-violet-400" />
+          <h2 className="font-bold flex items-center gap-2">
+            <Zap className="w-4 h-4 text-blue-500" />
             Datos extraídos por IA
           </h2>
 
-          <Card className="glass-card">
-            <CardContent className="p-5 space-y-4">
+          <div className="border border-gray-800 bg-gray-900 rounded-xl p-5 space-y-4">
               <div>
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Título generado</p>
                 <p className="font-semibold text-sm">{extracted.title}</p>
@@ -344,28 +337,25 @@ function ResultsStage({
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Texto original</p>
                 <p className="text-xs text-muted-foreground italic line-clamp-3">"{description}"</p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
         </div>
 
         {/* Right: Matches */}
         <div className="space-y-4">
-          <h2 className="font-semibold flex items-center gap-2">
-            <Star className="w-4 h-4 text-amber-400" />
+          <h2 className="font-bold flex items-center gap-2">
+            <Star className="w-4 h-4 text-yellow-500" />
             Voluntarios recomendados
           </h2>
 
           {matches.length === 0 ? (
-            <Card className="glass-card">
-              <CardContent className="p-8 text-center">
-                <User className="w-10 h-10 text-muted-foreground mx-auto mb-3" />
-                <p className="font-medium mb-1">Sin matches por ahora</p>
-                <p className="text-sm text-muted-foreground">
-                  No encontramos voluntarios con esas habilidades todavía. 
-                  Tu necesidad quedó guardada y te notificaremos cuando alguien se registre.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="border border-gray-800 bg-gray-900 rounded-xl p-8 text-center">
+              <User className="w-10 h-10 text-gray-500 mx-auto mb-3" />
+              <p className="font-bold mb-1">Sin matches por ahora</p>
+              <p className="text-sm text-gray-400">
+                No encontramos voluntarios con esas habilidades todavía. 
+                Tu necesidad quedó guardada y te notificaremos cuando alguien se registre.
+              </p>
+            </div>
           ) : (
             <div className="space-y-3">
               {matches.map((match, i) => (
@@ -377,11 +367,11 @@ function ResultsStage({
       </div>
 
       {/* Actions */}
-      <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
-        <Button variant="outline" onClick={onReset}>
+      <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-800">
+        <Button variant="outline" onClick={onReset} className="border-gray-700 hover:bg-gray-800">
           + Publicar otra necesidad
         </Button>
-        <Button variant="gradient" onClick={onViewDashboard}>
+        <Button className="bg-blue-600 hover:bg-blue-700 text-white" onClick={onViewDashboard}>
           Ver dashboard completo
         </Button>
       </div>
@@ -391,20 +381,17 @@ function ResultsStage({
 
 function VolunteerMatchCard({ match, rank }: { match: MatchResult; rank: number }) {
   const scorePercent = Math.round(match.score * 100);
-  const gradientColor =
-    scorePercent >= 70 ? 'from-emerald-500 to-teal-400' :
-    scorePercent >= 40 ? 'from-amber-500 to-orange-400' : 'from-rose-500 to-pink-400';
 
   return (
-    <div className="glass-card p-4 rounded-2xl hover:border-white/20 transition-all group">
+    <div className="border border-gray-800 bg-gray-900 p-4 rounded-xl">
       <div className="flex items-start gap-3">
         {/* Rank */}
-        <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 text-xs font-bold text-muted-foreground">
+        <div className="w-6 h-6 rounded bg-gray-800 flex items-center justify-center flex-shrink-0 text-xs font-bold text-gray-400">
           {rank}
         </div>
 
         {/* Avatar */}
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-lg flex-shrink-0">
+        <div className="w-10 h-10 rounded bg-blue-900/50 flex items-center justify-center text-lg flex-shrink-0">
           {match.volunteerAvatar || '👤'}
         </div>
 
@@ -428,9 +415,9 @@ function VolunteerMatchCard({ match, rank }: { match: MatchResult; rank: number 
           </div>
 
           {/* Score bar */}
-          <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-2">
+          <div className="h-1.5 bg-gray-800 rounded mb-2">
             <div
-              className={`h-full rounded-full bg-gradient-to-r ${gradientColor} transition-all duration-700`}
+              className="h-full rounded bg-blue-500"
               style={{ width: `${scorePercent}%` }}
             />
           </div>
