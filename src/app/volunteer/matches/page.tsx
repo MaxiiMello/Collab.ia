@@ -103,9 +103,6 @@ export default function VolunteerMatches() {
       <nav className="border-b border-gray-800 bg-black">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
             <span className="font-bold text-lg">Collab.ia</span>
           </Link>
           <div className="flex items-center gap-2">
@@ -125,8 +122,7 @@ export default function VolunteerMatches() {
       <main className="flex-1 max-w-3xl mx-auto w-full px-6 pt-12 pb-12">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
-            <Heart className="w-8 h-8 text-pink-400" />
+          <h1 className="text-3xl font-bold mb-2">
             Mis Oportunidades
           </h1>
           <p className="text-muted-foreground">

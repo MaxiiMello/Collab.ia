@@ -25,7 +25,7 @@ const SKILL_SUGGESTIONS = [
 const INTEREST_SUGGESTIONS = [
   'Arte y cultura', 'Música', 'Educación', 'Medio ambiente',
   'Deporte', 'Salud', 'Tecnología', 'Comunidad', 'Social',
-  'Infancia', 'Animales', 'Adultos mayores',
+  'Infancia', 'Animales', 'Adultos mayores', 'Cualquier tipo de causa',
 ];
 
 const AVAILABILITY_OPTIONS = [
@@ -35,6 +35,7 @@ const AVAILABILITY_OPTIONS = [
   'Entre semana (tarde/noche)',
   'Cualquier día con aviso previo',
   'Solo mañanas',
+  'Solo tardes',
   'Horario flexible',
 ];
 
@@ -84,10 +85,18 @@ export default function VolunteerProfile() {
     );
   };
 
+  const TODAS_LAS_CAUSAS = 'Cualquier tipo de causa';
+
   const toggleInterest = (interest: string) => {
-    setInterests(prev =>
-      prev.includes(interest) ? prev.filter(i => i !== interest) : [...prev, interest]
-    );
+    if (interest === TODAS_LAS_CAUSAS) {
+      // Si ya estaban todas seleccionadas, deseleccionar todo
+      const allSelected = INTEREST_SUGGESTIONS.every(i => interests.includes(i));
+      setInterests(allSelected ? [] : [...INTEREST_SUGGESTIONS]);
+    } else {
+      setInterests(prev =>
+        prev.includes(interest) ? prev.filter(i => i !== interest) : [...prev, interest]
+      );
+    }
   };
 
   const addCustomSkill = () => {
@@ -133,9 +142,6 @@ export default function VolunteerProfile() {
       <nav className="border-b border-gray-800 bg-black">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
             <span className="font-bold text-lg">Collab.ia</span>
           </Link>
           <div className="flex items-center gap-2">
@@ -173,7 +179,7 @@ export default function VolunteerProfile() {
           {/* Skills */}
           <div className="border border-gray-800 bg-gray-900 rounded-xl p-6">
             <div className="pb-4">
-              <h2 className="font-bold text-lg">🛠️ Habilidades</h2>
+              <h2 className="font-bold text-lg">💡 Habilidades</h2>
               <p className="text-sm text-gray-400">¿Qué sabes hacer? Selecciona tus habilidades técnicas</p>
             </div>
             <div className="space-y-4">

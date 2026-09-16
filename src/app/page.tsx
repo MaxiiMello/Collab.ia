@@ -70,15 +70,9 @@ export default function LandingPage() {
       <nav className="border-b border-gray-800 bg-black">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
             <span className="font-bold text-lg">Collab.ia</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-400">
-            <Globe className="w-4 h-4" />
-            <span>Rivera · Livramento</span>
-          </div>
+
         </div>
       </nav>
 
@@ -91,24 +85,11 @@ export default function LandingPage() {
               Voluntariado Inteligente
             </h1>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-4">
-              La IA conecta tu necesidad con el voluntario perfecto en la frontera Rivera · Livramento
+              La IA conecta tu necesidad con el voluntario perfecto en la frontera.
             </p>
           </div>
 
-          {/* Feature Pills */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {[
-              { icon: Sparkles, label: 'Match por IA' },
-              { icon: MapPin, label: 'Frontera UY-BR' },
-              { icon: Heart, label: 'Impacto real' },
-              { icon: Zap, label: 'En segundos' },
-            ].map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2 px-3 py-1 rounded border border-gray-700 bg-gray-800 text-sm">
-                <Icon className="w-4 h-4 text-blue-400" />
-                <span className="text-gray-300">{label}</span>
-              </div>
-            ))}
-          </div>
+
 
           {/* ---- Role Selection + Form ---- */}
           <div className="max-w-lg mx-auto">
@@ -208,10 +189,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ---- Footer ---- */}
-      <footer className="py-6 text-center text-sm text-gray-500 border-t border-gray-800">
-        <p>Collab.ia · Hackathon 2026</p>
-      </footer>
+
     </main>
   );
 }

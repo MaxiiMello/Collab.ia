@@ -93,9 +93,6 @@ export default function OrgDashboard() {
       <nav className="border-b border-gray-800 bg-black">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
             <span className="font-bold text-lg">Collab.ia</span>
           </Link>
 
@@ -313,18 +310,15 @@ function MatchCard({ match }: { match: Need['matches'][0] }) {
 
 function EmptyState() {
   return (
-    <div className="text-center py-24 border border-gray-800 bg-gray-900 rounded-xl">
-      <div className="w-20 h-20 rounded bg-gray-800 flex items-center justify-center mx-auto mb-6">
-        <Sparkles className="w-10 h-10 text-blue-500" />
-      </div>
-      <h3 className="text-xl font-bold mb-2">Aún no hay necesidades</h3>
-      <p className="text-gray-400 mb-8 max-w-sm mx-auto">
-        Publica tu primera necesidad y la IA encontrará los voluntarios perfectos en segundos
+    <div className="text-center py-16 border border-dashed border-gray-700 bg-gray-900/50 rounded-xl">
+      <h3 className="text-lg font-bold mb-2">Aún no hay necesidades publicadas</h3>
+      <p className="text-gray-400 mb-6 max-w-sm mx-auto text-sm">
+        Publica tu primera necesidad para empezar a conectar con voluntarios de la comunidad.
       </p>
       <Link href="/org/new-need">
-        <Button className="bg-blue-600 hover:bg-blue-700 text-white" size="lg">
-          <Plus className="w-5 h-5 mr-2" />
-          Publicar primera necesidad
+        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+          <Plus className="w-4 h-4 mr-2" />
+          Publicar necesidad
         </Button>
       </Link>
     </div>

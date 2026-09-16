@@ -4,6 +4,7 @@
 // ======================================
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { runMatching } from '@/lib/matching';
 
 // GET /api/users?role=volunteer
 export async function GET(request: NextRequest) {
@@ -72,6 +73,21 @@ export async function POST(request: NextRequest) {
         avatar: avatar || null,
       },
     });
+
+    // Si es voluntario y tiene habilidades, re-ejecutar matching retroactivo
+    // para que aparezca en necesidades que ya existían antes de su registro.
+    if (user.role === 'volunteer' && skills && skills.length > 0) {
+      try {
+        const openNeeds = await prisma.need.findMany({ where: { status: 'open' } });
+        for (const need of openNeeds) {
+          await runMatching(need.id, 5);
+        }
+        console.log(`🔄 Re-matching retroactivo para ${user.email} en ${openNeeds.length} necesidades`);
+      } catch (matchErr) {
+        console.error('Error en matching retroactivo:', matchErr);
+        // No interrumpir el flujo si el matching falla
+      }
+    }
 
     return NextResponse.json({
       user: {
